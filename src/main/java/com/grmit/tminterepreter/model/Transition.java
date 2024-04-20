@@ -10,9 +10,9 @@ public record Transition(
         char tapeDir
 ) {
 
-    public ComputationStep apply(ComputationStep from) {
+    public ComputationConfig apply(ComputationConfig from) {
         if (fromState == from.state() && from.tape()[from.headPosition()] == read)
-            return new ComputationStep(
+            return new ComputationConfig(
                     toState,
                     moveTapeHead(from.headPosition()),
                     writeOnTape(from.tape(), from.headPosition(), write)
@@ -22,8 +22,8 @@ public record Transition(
 
     private int moveTapeHead(int currHeadPosition) {
         return switch (tapeDir) {
-            case 'R' -> currHeadPosition++;
-            case 'L' -> currHeadPosition--;
+            case 'R' -> ++currHeadPosition;
+            case 'L' -> --currHeadPosition;
             default -> currHeadPosition;
         };
     }
