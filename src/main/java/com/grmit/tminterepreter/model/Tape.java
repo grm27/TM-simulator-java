@@ -1,7 +1,10 @@
 package com.grmit.tminterepreter.model;
 
-public class Tape {
+import java.util.Arrays;
 
+public class Tape {
+    private static final int EXTENSION_FACTOR = 5;
+    private int offset = 0;
     private char[] tape;
 
     public Tape(char[] tape) {
@@ -9,15 +12,34 @@ public class Tape {
     }
 
     public char read(int index) {
-        if (index < 0 || index >= tape.length)
+        if (index + offset < 0 || index >= tape.length)
             return '_';
-        return tape[index];
+        return tape[index + offset];
     }
 
     public void write(int index, char character) {
-        tape[index] = character;
+
+        if (index >= tape.length) {
+            tape = Arrays.copyOf(tape, index + EXTENSION_FACTOR);
+            Arrays.fill(tape, index + 1, tape.length - 1, '_');
+        }
+
+        if (index + offset < 0) {
+            tape = Arrays.copyOf(tape, tape.length + EXTENSION_FACTOR);
+            shiftArray(tape);
+            Arrays.fill(tape, 0, EXTENSION_FACTOR - 1, '_');
+            offset += EXTENSION_FACTOR;
+        }
+
+        tape[index + offset] = character;
     }
 
+    private void shiftArray(char[] array) {
+        assert EXTENSION_FACTOR < array.length;
+        for (int i = 1; i <= array.length - EXTENSION_FACTOR; i++) {
+            array[array.length - i] = array[array.length - i - EXTENSION_FACTOR];
+        }
+    }
 }
 
 
