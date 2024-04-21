@@ -9,11 +9,13 @@ public class Tape {
     }
 
     public char read(int index) {
+        if (index < 0 || index >= tape.length)
+            return '_';
         return tape[index];
     }
 
-    public void write(int index) {
-
+    public void write(int index, char character) {
+        tape[index] = character;
     }
 
 }
