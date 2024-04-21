@@ -7,7 +7,11 @@ public class Tape {
     private int offset = 0;
     private char[] tape;
 
-    public Tape(char[] tape) {
+    public static Tape of(char[] initArray){
+        return new Tape(initArray);
+    }
+
+    private Tape(char[] tape) {
         this.tape = tape;
     }
 
@@ -39,6 +43,19 @@ public class Tape {
         for (int i = 1; i <= array.length - EXTENSION_FACTOR; i++) {
             array[array.length - i] = array[array.length - i - EXTENSION_FACTOR];
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tape tape1 = (Tape) o;
+        return Arrays.equals(tape, tape1.tape);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(tape);
     }
 }
 

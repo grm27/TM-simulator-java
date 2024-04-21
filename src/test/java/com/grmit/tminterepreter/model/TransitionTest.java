@@ -6,31 +6,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransitionTest {
 
+
     @Test
-    void inBoundaryRightTransition() {
+    void rightTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
-                0,
-                new char[]{'a', 'a'}
+                1,
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
                 0, 1, 'a', 'b', 'R'
         );
         ComputationConfig to = new ComputationConfig(
                 1,
-                1,
-                new char[]{'b', 'a'}
+                2,
+                Tape.of(new char[]{'_', 'b', 'a', '_'})
         );
 
         assertConfigurationEquals(to, transition.apply(from));
     }
 
     @Test
-    void inBoundaryLeftTransition() {
+    void leftTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
-                new char[]{'a', 'a'}
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
                 0, 1, 'a', 'b', 'L'
@@ -38,42 +39,69 @@ class TransitionTest {
         ComputationConfig to = new ComputationConfig(
                 1,
                 0,
-                new char[]{'a', 'b'}
+                Tape.of(new char[]{'_', 'b', 'a', '_'})
         );
 
         assertConfigurationEquals(to, transition.apply(from));
     }
 
     @Test
-    void inBoundarySteadyStateTransition() {
+    void steadyStateTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
-                0,
-                new char[]{'a', 'a'}
+                1,
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
                 0, 1, 'a', 'b', 'S'
         );
         ComputationConfig to = new ComputationConfig(
                 1,
-                0,
-                new char[]{'b', 'a'}
+                1,
+                Tape.of(new char[]{'_', 'b', 'a', '_'})
         );
 
         assertConfigurationEquals(to, transition.apply(from));
+    }
+
+
+    @Test
+    void notApplicableOnStateTransition() {
+        ComputationConfig from = new ComputationConfig(
+                0,
+                1,
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
+        );
+        Transition transition = new Transition(
+                1, 1, 'a', 'b', 'S'
+        );
+        assertNull(transition.apply(from));
+    }
+
+    @Test
+    void notApplicableOnCurrCharTransition() {
+        ComputationConfig from = new ComputationConfig(
+                0,
+                1,
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
+        );
+        Transition transition = new Transition(
+                0, 1, 'b', 'c', 'S'
+        );
+        assertNull(transition.apply(from));
     }
 
     private void assertConfigurationEquals(ComputationConfig expected, ComputationConfig actual) {
         if (expected == null && actual == null)
             return;
 
-        assertTrue((expected != null && actual != null),
-                "Expected non ending configuration, but the machine actually stopped");
+        assertFalse(expected == null || actual == null,
+                "Comparing ending and non ending configuration");
         assertEquals(expected.headPosition(), actual.headPosition(),
                 "Head positions do not match");
         assertEquals(expected.state(), actual.state(),
                 "States do not match");
-        assertArrayEquals(expected.tape(), actual.tape(),
+        assertEquals(expected.tape(), actual.tape(),
                 "Tapes are not in the same configuration");
     }
 }

@@ -11,7 +11,7 @@ class TapeTest {
 
     @BeforeEach
     void setUp() {
-        tape = new Tape(new char[]{'a', 'b'});
+        tape = Tape.of(new char[]{'a', 'b'});
     }
 
     @Test

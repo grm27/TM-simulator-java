@@ -1,7 +1,5 @@
 package com.grmit.tminterepreter.model;
 
-import java.util.Arrays;
-
 public record Transition(
         int fromState,
         int toState,
@@ -11,7 +9,7 @@ public record Transition(
 ) {
 
     public ComputationConfig apply(ComputationConfig from) {
-        if (fromState == from.state() && from.tape()[from.headPosition()] == read)
+        if (fromState == from.state() && from.tape().read(from.headPosition()) == read)
             return new ComputationConfig(
                     toState,
                     moveTapeHead(from.headPosition()),
@@ -28,9 +26,8 @@ public record Transition(
         };
     }
 
-    private char[] writeOnTape(char[] tape, int headPos, char write) {
-        char[] newTape = Arrays.copyOf(tape, tape.length);
-        newTape[headPos] = write;
-        return newTape;
+    private Tape writeOnTape(Tape tape, int headPos, char write) {
+        tape.write(headPos, write);
+        return tape;
     }
 }
