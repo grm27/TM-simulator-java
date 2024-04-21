@@ -1,0 +1,20 @@
+tr
+0 a a R 1
+1 a a R 1
+acc
+2
+6
+max
+50
+run
+aaaaaaaaaaaaaaaa
+abbbbbbbbccccccc
+aaaaaabb
+ab
+aabbbbccc
+ababa
+aaaab
+aaaccccccc
+aaaaaaaa
+aabaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

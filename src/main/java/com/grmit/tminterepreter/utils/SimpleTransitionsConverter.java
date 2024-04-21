@@ -3,18 +3,9 @@ package com.grmit.tminterepreter.utils;
 import com.grmit.tminterepreter.model.Transition;
 
 import java.util.List;
-import java.util.function.Supplier;
 
-public class SimpleTransitionsSupplier implements Supplier<List<Transition>> {
-
-    private final List<String> transitions;
-
-    public SimpleTransitionsSupplier(List<String> transitions) {
-        this.transitions = transitions;
-    }
-
-    @Override
-    public List<Transition> get() {
+public class SimpleTransitionsConverter {
+    public List<Transition> from(List<String> transitions) {
         return transitions.stream().map(declaration -> {
             char[] tokens = declaration.toCharArray();
             return Transition.of(

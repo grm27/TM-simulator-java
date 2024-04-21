@@ -1,4 +1,4 @@
-package com.grmit.tminterepreter.egine;
+package com.grmit.tminterepreter.engine;
 
 public interface TMSimulator {
     char isStringAccepted(char[] inputString);

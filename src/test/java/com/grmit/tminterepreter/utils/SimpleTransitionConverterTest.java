@@ -7,20 +7,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SimpleTransitionsSupplierTest {
+class SimpleTransitionConverterTest {
 
     @Test
     void supplyTransitionsFromStringList() {
-        SimpleTransitionsSupplier simpleTransitionsSupplier = new SimpleTransitionsSupplier(
-                List.of("1 a a R 1",
-                        "0 x x R 0",
-                        "0 y y R 0")
-        );
+        SimpleTransitionsConverter simpleTransitionsConverter = new SimpleTransitionsConverter();
         List<Transition> expected = List.of(
                 Transition.of(1, 1, 'a', 'a', 'R'),
                 Transition.of(0, 0, 'x', 'x', 'R'),
                 Transition.of(0, 0, 'y', 'y', 'R')
         );
-        assertEquals(expected, simpleTransitionsSupplier.get());
+        assertEquals(expected, simpleTransitionsConverter.from(
+                List.of("1 a a R 1",
+                        "0 x x R 0",
+                        "0 y y R 0")
+        ));
     }
 }
