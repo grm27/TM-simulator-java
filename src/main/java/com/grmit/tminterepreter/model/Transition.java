@@ -8,12 +8,12 @@ public record Transition(
         char tapeDir
 ) {
 
-    public static Transition of(int fromState, int toState, char read, char write, char tapeDir){
+    public static Transition of(int fromState, int toState, char read, char write, char tapeDir) {
         return new Transition(fromState, toState, read, write, tapeDir);
     }
 
-    public String index(){
-        return  "" + fromState + read;
+    public String index() {
+        return "" + fromState + read;
     }
 
     public ComputationConfig apply(ComputationConfig from) {
@@ -21,6 +21,7 @@ public record Transition(
             return new ComputationConfig(
                     toState,
                     moveTapeHead(from.headPosition()),
+                    from.iteration() + 1,
                     writeOnTape(from.tape(), from.headPosition(), write)
             );
         return null;

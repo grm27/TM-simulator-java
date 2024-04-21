@@ -15,12 +15,12 @@ class HashTableTransitionRepositoryTest {
     @BeforeAll
     static void beforeAll() {
         transitionRepository = new HashTableTransitionRepository(
-                () -> new Transition[]{
+                () -> List.of(
                         Transition.of(0, 1, 'a', 'b', 'R'),
                         Transition.of(0, 1, 'a', 'c', 'R'),
                         Transition.of(1, 1, 'a', 'b', 'R'),
-                        Transition.of(1, 1, 'b', 'b', 'R'),
-                }
+                        Transition.of(1, 1, 'b', 'b', 'R')
+                )
         );
     }
 

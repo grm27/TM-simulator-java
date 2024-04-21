@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class TransitionTest {
 
-
     @Test
     void rightTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
+                0,
                 Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
@@ -23,6 +23,7 @@ class TransitionTest {
         ComputationConfig to = new ComputationConfig(
                 1,
                 2,
+                1,
                 Tape.of(new char[]{'_', 'b', 'a', '_'})
         );
 
@@ -34,6 +35,7 @@ class TransitionTest {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
+                0,
                 Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
@@ -42,6 +44,7 @@ class TransitionTest {
         ComputationConfig to = new ComputationConfig(
                 1,
                 0,
+                1,
                 Tape.of(new char[]{'_', 'b', 'a', '_'})
         );
 
@@ -53,12 +56,14 @@ class TransitionTest {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
+                0,
                 Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
                 0, 1, 'a', 'b', 'S'
         );
         ComputationConfig to = new ComputationConfig(
+                1,
                 1,
                 1,
                 Tape.of(new char[]{'_', 'b', 'a', '_'})
@@ -69,10 +74,11 @@ class TransitionTest {
 
 
     @Test
-    void notApplicableOnStateTransition() {
+    void notApplicableOnCurrStateTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
+                0,
                 Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
@@ -86,6 +92,7 @@ class TransitionTest {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
+                0,
                 Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
@@ -106,5 +113,7 @@ class TransitionTest {
                 "States do not match");
         assertEquals(expected.tape(), actual.tape(),
                 "Tapes are not in the same configuration");
+        assertEquals(expected.iteration(), actual.iteration(),
+                "Configurations have different iterations");
     }
 }
