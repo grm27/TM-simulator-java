@@ -6,11 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-
 class TransitionTest {
 
     @Test
-    void rightTransition() {
+    void moveHeadOnRightTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -31,7 +30,7 @@ class TransitionTest {
     }
 
     @Test
-    void leftTransition() {
+    void moveHeadOnLeftTransition() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -71,7 +70,6 @@ class TransitionTest {
 
         assertConfigurationEquals(to, transition.apply(from));
     }
-
 
     @Test
     void notApplicableOnCurrStateTransition() {

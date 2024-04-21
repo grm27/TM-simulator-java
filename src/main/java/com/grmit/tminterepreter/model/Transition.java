@@ -5,7 +5,7 @@ public record Transition(
         int toState,
         char read,
         char write,
-        char tapeDir
+        char headDir
 ) {
 
     public static Transition of(int fromState, int toState, char read, char write, char tapeDir) {
@@ -28,7 +28,7 @@ public record Transition(
     }
 
     private int moveTapeHead(int currHeadPosition) {
-        return switch (tapeDir) {
+        return switch (headDir) {
             case 'R' -> ++currHeadPosition;
             case 'L' -> --currHeadPosition;
             default -> currHeadPosition;
