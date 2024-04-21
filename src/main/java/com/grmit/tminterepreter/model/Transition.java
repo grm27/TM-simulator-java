@@ -8,6 +8,14 @@ public record Transition(
         char tapeDir
 ) {
 
+    public static Transition of(int fromState, int toState, char read, char write, char tapeDir){
+        return new Transition(fromState, toState, read, write, tapeDir);
+    }
+
+    public String index(){
+        return  "" + fromState + read;
+    }
+
     public ComputationConfig apply(ComputationConfig from) {
         if (fromState == from.state() && from.tape().read(from.headPosition()) == read)
             return new ComputationConfig(
