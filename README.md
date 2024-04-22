@@ -19,7 +19,7 @@
 
 ### Examples
 
-#### Non-deterministic Turing Machine for "ww"
+#### Non-deterministic Turing Machine for "ww<sup>R</sup>"
 - **Acceptance States**: 7
 - **Maximum Steps**: 800
 - **Input Strings**:
