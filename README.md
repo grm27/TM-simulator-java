@@ -62,6 +62,21 @@
     - `babaaababaaa`
     - `ababaabababbabbbbbabbbbabaaababaaaababaabababbabbbbbabbbbabaaababaaa`
 - **Transitions**:
+    - `0 a c R 1` 
+    - `0 b c R 2`
+    - `1 a a R 1` 
+    - `1 a d L 3`
+    - `1 b b R 1`
+    - `2 a a R 2` 
+    - `2 b b R 2` 
+    - `2 b d L 3` 
+    - `3 a a L 3`
+    - `3 b b L 3`
+    - `3 c c R 4`
+    - `4 d d R 10`
+    - `4 a c R 5`
+    - `4 b c R 6`
+    - `5 a a R 5`
     - `5 b b R 5`
     - `5 d d R 7`
     - `6 a a R 6`
