@@ -1,4 +1,4 @@
-package com.grmit.tminterepreter.model;
+package com.grmit.tmsimulator.model;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class TransitionTest {
 
     @Test
-    void moveHeadOnRightTransition() {
+    void shouldMoveHeadPositionOnRight() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -30,7 +30,7 @@ class TransitionTest {
     }
 
     @Test
-    void moveHeadOnLeftTransition() {
+    void shouldMoveHeadPositionOnLeft() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -51,7 +51,7 @@ class TransitionTest {
     }
 
     @Test
-    void steadyStateTransition() {
+    void shouldNotMoveHeadPosition() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -72,7 +72,28 @@ class TransitionTest {
     }
 
     @Test
-    void notApplicableOnCurrStateTransition() {
+    void shouldRemainInTheSameStateOnTheSamePosition() {
+        ComputationConfig from = new ComputationConfig(
+                0,
+                1,
+                0,
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
+        );
+        Transition transition = new Transition(
+                0, 0, 'a', 'a', 'S'
+        );
+        ComputationConfig to = new ComputationConfig(
+                0,
+                1,
+                1,
+                Tape.of(new char[]{'_', 'a', 'a', '_'})
+        );
+
+        assertConfigurationEquals(to, transition.apply(from));
+    }
+
+    @Test
+    void shouldNotReturnNewConfigurationWhenNotApplicableOnState() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -86,7 +107,7 @@ class TransitionTest {
     }
 
     @Test
-    void notApplicableOnCurrCharTransition() {
+    void shouldNotReturnNewConfigurationWhenNotApplicableOnCurrChar() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,

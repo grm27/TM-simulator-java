@@ -1,23 +1,19 @@
-package com.grmit.tminterepreter.engine;
+package com.grmit.tmsimulator.engine;
 
-import com.grmit.tminterepreter.storage.TransitionRepository;
+import com.grmit.tmsimulator.storage.TransitionRepository;
 
 import java.util.List;
 
 public abstract class AbstractTMSimulator implements TMSimulator {
 
-    private final TransitionRepository transitionRepository;
-    private final List<Integer> finalStates;
-    private final int maxIterations;
+    protected final TransitionRepository transitionRepository;
+    protected final List<Integer> finalStates;
+    protected final int maxIterations;
 
     public AbstractTMSimulator(TransitionRepository transitionRepository, List<Integer> finalStates, int maxIterations) {
         this.transitionRepository = transitionRepository;
         this.finalStates = finalStates;
         this.maxIterations = maxIterations;
-    }
-
-    public TransitionRepository getTransitionRepository() {
-        return transitionRepository;
     }
 
     public List<Integer> getFinalStates() {

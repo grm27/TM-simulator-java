@@ -1,8 +1,8 @@
-package com.grmit.tminterepreter.utils;
+package com.grmit.tmsimulator.utils;
 
-import com.grmit.tminterepreter.engine.AbstractTMSimulator;
-import com.grmit.tminterepreter.engine.TMSimulatorBreadthFirstSearchImpl;
-import com.grmit.tminterepreter.storage.HashTableTransitionRepository;
+import com.grmit.tmsimulator.engine.AbstractTMSimulator;
+import com.grmit.tmsimulator.engine.TMSimulatorBreadthFirstSearchImpl;
+import com.grmit.tmsimulator.storage.HashTableTransitionRepository;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

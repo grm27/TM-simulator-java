@@ -1,6 +1,6 @@
-package com.grmit.tminterepreter.utils;
+package com.grmit.tmsimulator.utils;
 
-import com.grmit.tminterepreter.model.Transition;
+import com.grmit.tmsimulator.model.Transition;
 
 import java.util.List;
 

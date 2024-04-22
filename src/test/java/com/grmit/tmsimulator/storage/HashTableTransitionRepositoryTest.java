@@ -1,12 +1,13 @@
-package com.grmit.tminterepreter.storage;
+package com.grmit.tmsimulator.storage;
 
-import com.grmit.tminterepreter.model.Transition;
+import com.grmit.tmsimulator.model.Transition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class HashTableTransitionRepositoryTest {
 
@@ -25,13 +26,17 @@ class HashTableTransitionRepositoryTest {
     }
 
     @Test
-    void noTransitionPresent() {
-        assertEquals(0, transitionRepository.get(2, 'a').size());
-        assertEquals(0, transitionRepository.get(0, 'c').size());
+    void shouldReturnEmptyListInCaseOfMismatch() {
+        List<Transition> mismatchOnState = transitionRepository.get(2, 'a');
+        List<Transition> mismatchOnChar = transitionRepository.get(0, 'c');
+        assertNotNull(mismatchOnState);
+        assertNotNull(mismatchOnChar);
+        assertEquals(0, mismatchOnState.size());
+        assertEquals(0, mismatchOnChar.size());
     }
 
     @Test
-    void matchingTransitions() {
+    void shouldReturnMatchingTransitions() {
         assertEquals(List.of(
                 Transition.of(0, 1, 'a', 'b', 'R'),
                 Transition.of(0, 1, 'a', 'c', 'R')

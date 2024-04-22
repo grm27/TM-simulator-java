@@ -1,6 +1,6 @@
-package com.grmit.tminterepreter.utils;
+package com.grmit.tmsimulator.utils;
 
-import com.grmit.tminterepreter.model.Transition;
+import com.grmit.tmsimulator.model.Transition;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SimpleTransitionConverterTest {
 
     @Test
-    void supplyTransitionsFromStringList() {
+    void shouldConvertStringListIntoTransitionList() {
         SimpleTransitionsConverter simpleTransitionsConverter = new SimpleTransitionsConverter();
         List<Transition> expected = List.of(
                 Transition.of(1, 1, 'a', 'a', 'R'),

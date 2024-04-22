@@ -1,4 +1,4 @@
-package com.grmit.tminterepreter.model;
+package com.grmit.tmsimulator.model;
 
 public record ComputationConfig(
         int state,

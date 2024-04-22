@@ -1,6 +1,6 @@
-package com.grmit.tminterepreter.utils;
+package com.grmit.tmsimulator.utils;
 
-import com.grmit.tminterepreter.engine.AbstractTMSimulator;
+import com.grmit.tmsimulator.engine.AbstractTMSimulator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -22,7 +22,7 @@ class BfsWithHashRepositoryTmSimulatorFactoryTest {
     );
 
     @Test
-    void createSimulatorFromFile() {
+    void shouldCreateSimulatorFromFile() {
         when(simpleTransitionsConverter.from(anyList())).thenReturn(Collections.emptyList());
 
         AbstractTMSimulator abstractTMSimulator = fileTMSimulatorFactory.createTMSimulator();

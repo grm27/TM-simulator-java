@@ -1,4 +1,4 @@
-package com.grmit.tminterepreter.engine;
+package com.grmit.tmsimulator.engine;
 
 import org.junit.jupiter.api.BeforeAll;
 

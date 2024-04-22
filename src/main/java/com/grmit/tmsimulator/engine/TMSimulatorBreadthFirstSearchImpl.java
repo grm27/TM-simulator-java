@@ -1,6 +1,6 @@
-package com.grmit.tminterepreter.engine;
+package com.grmit.tmsimulator.engine;
 
-import com.grmit.tminterepreter.storage.TransitionRepository;
+import com.grmit.tmsimulator.storage.TransitionRepository;
 
 import java.util.List;
 

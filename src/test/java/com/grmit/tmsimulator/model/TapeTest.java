@@ -1,4 +1,4 @@
-package com.grmit.tminterepreter.model;
+package com.grmit.tmsimulator.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
