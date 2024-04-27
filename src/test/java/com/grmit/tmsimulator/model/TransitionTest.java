@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class TransitionTest {
 
     @Test
-    void shouldMoveHeadPositionOnRight() {
+    void shouldMoveHeadOnRight() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -30,7 +30,7 @@ class TransitionTest {
     }
 
     @Test
-    void shouldMoveHeadPositionOnLeft() {
+    void shouldMoveHeadOnLeft() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -51,7 +51,7 @@ class TransitionTest {
     }
 
     @Test
-    void shouldNotMoveHeadPosition() {
+    void shouldNotMoveHead() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -93,7 +93,7 @@ class TransitionTest {
     }
 
     @Test
-    void shouldNotReturnNewConfigurationWhenNotApplicableOnState() {
+    void shouldReturnNullWhenNotApplicableOnState() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,
@@ -107,7 +107,7 @@ class TransitionTest {
     }
 
     @Test
-    void shouldNotReturnNewConfigurationWhenNotApplicableOnCurrChar() {
+    void shouldReturnNullWhenNotApplicableOnCurrChar() {
         ComputationConfig from = new ComputationConfig(
                 0,
                 1,

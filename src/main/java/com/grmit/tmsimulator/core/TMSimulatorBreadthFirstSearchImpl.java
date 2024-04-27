@@ -1,4 +1,4 @@
-package com.grmit.tmsimulator.engine;
+package com.grmit.tmsimulator.core;
 
 import com.grmit.tmsimulator.storage.TransitionRepository;
 

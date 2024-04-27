@@ -1,4 +1,4 @@
-package com.grmit.tmsimulator.engine;
+package com.grmit.tmsimulator.core;
 
 import com.grmit.tmsimulator.storage.TransitionRepository;
 
@@ -14,13 +14,5 @@ public abstract class AbstractTMSimulator implements TMSimulator {
         this.transitionRepository = transitionRepository;
         this.finalStates = finalStates;
         this.maxIterations = maxIterations;
-    }
-
-    public List<Integer> getFinalStates() {
-        return finalStates;
-    }
-
-    public int getMaxIterations() {
-        return maxIterations;
     }
 }

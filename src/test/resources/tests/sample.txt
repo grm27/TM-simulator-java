@@ -1,0 +1,8 @@
+tr
+1 a a R 1
+0 x x R 0
+acc
+0
+1
+max
+2
