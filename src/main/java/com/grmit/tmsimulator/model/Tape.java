@@ -2,7 +2,7 @@ package com.grmit.tmsimulator.model;
 
 import java.util.Arrays;
 
-public class Tape {
+public class Tape implements Cloneable {
     private static final int EXTENSION_FACTOR = 5;
     private int offset = 0;
     private char[] tape;
@@ -50,12 +50,23 @@ public class Tape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tape tape1 = (Tape) o;
-        return Arrays.equals(tape, tape1.tape);
+        return tape == tape1.tape;
     }
 
     @Override
     public int hashCode() {
         return Arrays.hashCode(tape);
+    }
+
+    @Override
+    public Tape clone() {
+        try {
+            Tape clone = (Tape) super.clone();
+            clone.tape = Arrays.copyOf(this.tape, this.tape.length);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
 

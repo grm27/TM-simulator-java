@@ -16,14 +16,17 @@ public record Transition(
         return "" + fromState + read;
     }
 
-    public ComputationConfig apply(ComputationConfig from) {
-        if (fromState == from.state() && from.tape().read(from.headPosition()) == read)
+    public ComputationConfig apply(ComputationConfig from, boolean cloneTape) {
+        if (fromState == from.state() && from.tape().read(from.headPosition()) == read) {
+            from.tape().write(from.headPosition(), write);
+            Tape newConfigTape = cloneTape ? from.tape().clone() : from.tape();
             return new ComputationConfig(
                     toState,
                     moveTapeHead(from.headPosition()),
                     from.iteration() + 1,
-                    writeOnTape(from.tape(), from.headPosition(), write)
+                    newConfigTape
             );
+        }
         return null;
     }
 
@@ -33,10 +36,5 @@ public record Transition(
             case 'L' -> --currHeadPosition;
             default -> currHeadPosition;
         };
-    }
-
-    private Tape writeOnTape(Tape tape, int headPos, char write) {
-        tape.write(headPos, write);
-        return tape;
     }
 }

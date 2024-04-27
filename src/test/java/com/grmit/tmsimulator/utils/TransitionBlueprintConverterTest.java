@@ -7,17 +7,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SimpleTransitionConverterTest {
+class TransitionBlueprintConverterTest {
 
     @Test
-    void shouldConvertStringListIntoTransitionList() {
-        TransitionsBuilder transitionsBuilder = new TransitionsBuilder();
+    void shouldBuildTransitionListFromStringList() {
+        TransitionsBlueprintConverter transitionsBlueprintConverter = new TransitionsBlueprintConverter();
         List<Transition> expected = List.of(
                 Transition.of(1, 1, 'a', 'a', 'R'),
                 Transition.of(0, 0, 'x', 'x', 'R'),
                 Transition.of(0, 0, 'y', 'y', 'R')
         );
-        assertEquals(expected, transitionsBuilder.from(
+        assertEquals(expected, transitionsBlueprintConverter.from(
                 List.of("1 a a R 1",
                         "0 x x R 0",
                         "0 y y R 0")

@@ -7,12 +7,12 @@ import java.util.List;
 public abstract class AbstractTMSimulator implements TMSimulator {
 
     protected final TransitionRepository transitionRepository;
-    protected final List<Integer> finalStates;
+    protected final List<Integer> acceptingStates;
     protected final int maxIterations;
 
-    public AbstractTMSimulator(TransitionRepository transitionRepository, List<Integer> finalStates, int maxIterations) {
+    public AbstractTMSimulator(TransitionRepository transitionRepository, List<Integer> acceptingStates, int maxIterations) {
         this.transitionRepository = transitionRepository;
-        this.finalStates = finalStates;
+        this.acceptingStates = acceptingStates;
         this.maxIterations = maxIterations;
     }
 }

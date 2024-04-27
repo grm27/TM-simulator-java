@@ -4,7 +4,7 @@ import com.grmit.tmsimulator.model.Transition;
 
 import java.util.List;
 
-public class TransitionsBuilder {
+public class TransitionsBlueprintConverter {
     public List<Transition> from(List<String> transitions) {
         return transitions.stream().map(declaration -> {
             char[] tokens = declaration.toCharArray();
