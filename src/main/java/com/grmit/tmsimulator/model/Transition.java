@@ -1,11 +1,11 @@
 package com.grmit.tmsimulator.model;
 
 public record Transition(
-        int fromState,
-        int toState,
-        char read,
-        char write,
-        char headDir
+    int fromState,
+    int toState,
+    char read,
+    char write,
+    char headDir
 ) {
 
     public static Transition of(int fromState, int toState, char read, char write, char tapeDir) {
@@ -16,18 +16,18 @@ public record Transition(
         return "" + fromState + read;
     }
 
-    public ComputationConfig apply(ComputationConfig from, boolean cloneTape) {
-        if (fromState == from.state() && from.tape().read(from.headPosition()) == read) {
-            from.tape().write(from.headPosition(), write);
+    public ProcessingState apply(ProcessingState from, boolean cloneTape) throws IllegalArgumentException {
+        if (fromState == from.state() && from.currChar() == read) {
             Tape newConfigTape = cloneTape ? from.tape().clone() : from.tape();
-            return new ComputationConfig(
-                    toState,
-                    moveTapeHead(from.headPosition()),
-                    from.iteration() + 1,
-                    newConfigTape
+            newConfigTape.write(from.headPosition(), write);
+            return new ProcessingState(
+                toState,
+                moveTapeHead(from.headPosition()),
+                from.iteration() + 1,
+                newConfigTape
             );
         }
-        return null;
+        throw new IllegalArgumentException(String.format("Transition not applicable in configuration %d %c", from.state(), from.currChar()));
     }
 
     private int moveTapeHead(int currHeadPosition) {

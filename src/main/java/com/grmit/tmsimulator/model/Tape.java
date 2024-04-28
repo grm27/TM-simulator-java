@@ -3,45 +3,54 @@ package com.grmit.tmsimulator.model;
 import java.util.Arrays;
 
 public class Tape implements Cloneable {
-    private static final int EXTENSION_FACTOR = 5;
+    private final int extensionFactor;
     private int offset = 0;
     private char[] tape;
 
-    public static Tape of(char[] initArray){
-        return new Tape(initArray);
+    public static Tape of(char[] initArray) {
+        return new Tape(initArray, 5);
     }
 
-    private Tape(char[] tape) {
+    public static Tape of(char[] initArray, int extensionFactor) {
+        return new Tape(initArray, extensionFactor);
+    }
+
+    private Tape(char[] tape, int extensionFactor) {
         this.tape = tape;
+        this.extensionFactor = extensionFactor;
     }
 
     public char read(int index) {
-        if (index + offset < 0 || index >= tape.length)
+        if (index + offset < 0 || index + offset >= tape.length)
             return '_';
         return tape[index + offset];
     }
 
     public void write(int index, char character) {
 
-        if (index >= tape.length) {
-            tape = Arrays.copyOf(tape, index + EXTENSION_FACTOR);
-            Arrays.fill(tape, index + 1, tape.length - 1, '_');
+        if (index + offset >= tape.length) {
+            tape = Arrays.copyOf(tape, index + offset + extensionFactor);
+            Arrays.fill(tape, index + offset, tape.length, '_');
         }
 
         if (index + offset < 0) {
-            tape = Arrays.copyOf(tape, tape.length + EXTENSION_FACTOR);
+            tape = Arrays.copyOf(tape, tape.length + extensionFactor);
             shiftArray(tape);
-            Arrays.fill(tape, 0, EXTENSION_FACTOR - 1, '_');
-            offset += EXTENSION_FACTOR;
+            Arrays.fill(tape, 0, extensionFactor - 1, '_');
+            offset += extensionFactor;
         }
 
         tape[index + offset] = character;
     }
 
+    public char[] asCharArray() {
+        return tape;
+    }
+
     private void shiftArray(char[] array) {
-        assert EXTENSION_FACTOR < array.length;
-        for (int i = 1; i <= array.length - EXTENSION_FACTOR; i++) {
-            array[array.length - i] = array[array.length - i - EXTENSION_FACTOR];
+        assert extensionFactor < array.length;
+        for (int i = 1; i <= array.length - extensionFactor; i++) {
+            array[array.length - i] = array[array.length - i - extensionFactor];
         }
     }
 
@@ -62,11 +71,18 @@ public class Tape implements Cloneable {
     public Tape clone() {
         try {
             Tape clone = (Tape) super.clone();
-            clone.tape = Arrays.copyOf(this.tape, this.tape.length);
+            clone.tape = this.tape.clone();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Tape{" +
+            "tape=" + Arrays.toString(tape) +
+            '}';
     }
 }
 

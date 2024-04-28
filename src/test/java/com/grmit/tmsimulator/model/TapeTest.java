@@ -3,15 +3,17 @@ package com.grmit.tmsimulator.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TapeTest {
 
+    private static final int EXTENSION_FACTOR = 5;
     private Tape tape;
 
     @BeforeEach
     void setUp() {
-        tape = Tape.of(new char[]{'a', 'b'});
+        tape = Tape.of(new char[]{'a', 'b'}, EXTENSION_FACTOR);
     }
 
     @Test
@@ -29,23 +31,15 @@ class TapeTest {
     @Test
     void writeInBoundaries() {
         tape.write(0, 'c');
-        assertEquals('c', tape.read(0));
-        assertEquals('b', tape.read(1));
+        assertArrayEquals(new char[]{'c', 'b'}, tape.asCharArray());
     }
 
     @Test
-    void writeOutOfLeftBoundary() {
+    void writeOutOfBoundaries() {
         tape.write(2, 'c');
-        assertEquals('a', tape.read(0));
-        assertEquals('b', tape.read(1));
-        assertEquals('c', tape.read(2));
-    }
-
-    @Test
-    void writeOutOfRightBoundary() {
         tape.write(-1, 'c');
+        assertArrayEquals(new char[]{'_', '_', '_', '_', 'c', 'a', 'b', 'c', '_', '_', '_', '_'}, tape.asCharArray());
+        assertEquals('c', tape.read(2));
         assertEquals('c', tape.read(-1));
-        assertEquals('a', tape.read(0));
-        assertEquals('b', tape.read(1));
     }
 }

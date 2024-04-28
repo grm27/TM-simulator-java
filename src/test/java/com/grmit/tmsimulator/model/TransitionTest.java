@@ -6,13 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TransitionTest {
 
     @Test
     void shouldMoveHeadOnRightAndChangeState() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
-        ComputationConfig from = new ComputationConfig(
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -22,7 +23,7 @@ class TransitionTest {
                 0, 1, 'a', 'b', 'R'
         );
 
-        ComputationConfig to = transition.apply(from, false);
+        ProcessingState to = transition.apply(from, false);
 
         assertNotNull(to);
         assertEquals(1, to.state());
@@ -34,7 +35,7 @@ class TransitionTest {
     @Test
     void shouldMoveHeadOnLeftAndChangeState() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
-        ComputationConfig from = new ComputationConfig(
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -44,7 +45,7 @@ class TransitionTest {
                 0, 1, 'a', 'b', 'L'
         );
 
-        ComputationConfig to = transition.apply(from, false);
+        ProcessingState to = transition.apply(from, false);
 
         assertNotNull(to);
         assertEquals(1, to.state());
@@ -56,7 +57,7 @@ class TransitionTest {
     @Test
     void shouldNotMoveHeadAndChangeState() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
-        ComputationConfig from = new ComputationConfig(
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -66,7 +67,7 @@ class TransitionTest {
                 0, 1, 'a', 'b', 'S'
         );
 
-        ComputationConfig to = transition.apply(from, false);
+        ProcessingState to = transition.apply(from, false);
 
         assertNotNull(to);
         assertEquals(1, to.state());
@@ -78,7 +79,7 @@ class TransitionTest {
     @Test
     void shouldRemainInTheSameStateOnTheSamePosition() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
-        ComputationConfig from = new ComputationConfig(
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -88,7 +89,7 @@ class TransitionTest {
                 0, 0, 'a', 'a', 'S'
         );
 
-        ComputationConfig to = transition.apply(from, false);
+        ProcessingState to = transition.apply(from, false);
 
         assertNotNull(to);
         assertEquals(0, to.state());
@@ -98,8 +99,8 @@ class TransitionTest {
     }
 
     @Test
-    void shouldReturnNullWhenNotApplicableOnState() {
-        ComputationConfig from = new ComputationConfig(
+    void shouldThrowExceptionWhenNotApplicableOnState() {
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -108,12 +109,12 @@ class TransitionTest {
         Transition transition = new Transition(
                 1, 1, 'a', 'b', 'S'
         );
-        assertNull(transition.apply(from, false));
+        assertThrows(IllegalArgumentException.class, () -> transition.apply(from, false));
     }
 
     @Test
-    void shouldReturnNullWhenNotApplicableOnCurrChar() {
-        ComputationConfig from = new ComputationConfig(
+    void shouldThrowExceptionWhenNotApplicableOnCurrChar() {
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -122,13 +123,13 @@ class TransitionTest {
         Transition transition = new Transition(
                 0, 1, 'b', 'c', 'S'
         );
-        assertNull(transition.apply(from, false));
+        assertThrows(IllegalArgumentException.class, () -> transition.apply(from, false));
     }
 
     @Test
     void shouldReturnTapeCopyWhenCloneFlagIsTrue() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
-        ComputationConfig from = new ComputationConfig(
+        ProcessingState from = new ProcessingState(
                 0,
                 1,
                 0,
@@ -138,7 +139,7 @@ class TransitionTest {
                 0, 1, 'a', 'b', 'R'
         );
 
-        ComputationConfig to = transition.apply(from, true);
+        ProcessingState to = transition.apply(from, true);
 
         assertNotNull(to);
         assertEquals(1, to.state());

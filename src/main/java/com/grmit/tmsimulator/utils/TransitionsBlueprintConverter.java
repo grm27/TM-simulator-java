@@ -7,13 +7,14 @@ import java.util.List;
 public class TransitionsBlueprintConverter {
     public List<Transition> from(List<String> transitions) {
         return transitions.stream().map(declaration -> {
-            char[] tokens = declaration.toCharArray();
+            String[] tokens = declaration.split(" ");
             return Transition.of(
-                    Character.getNumericValue(tokens[0]),
-                    Character.getNumericValue(tokens[8]),
-                    tokens[2],
-                    tokens[4],
-                    tokens[6]);
+                Integer.parseInt(tokens[0]),
+                Integer.parseInt(tokens[4]),
+                tokens[1].charAt(0),
+                tokens[2].charAt(0),
+                tokens[3].charAt(0)
+            );
         }).toList();
     }
 }
