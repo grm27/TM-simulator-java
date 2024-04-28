@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TransitionTest {
@@ -14,13 +13,13 @@ class TransitionTest {
     void shouldMoveHeadOnRightAndChangeState() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                tape
+            0,
+            1,
+            0,
+            tape
         );
         Transition transition = new Transition(
-                0, 1, 'a', 'b', 'R'
+            0, 1, 'a', 'b', 'R'
         );
 
         ProcessingState to = transition.apply(from, false);
@@ -36,13 +35,13 @@ class TransitionTest {
     void shouldMoveHeadOnLeftAndChangeState() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                tape
+            0,
+            1,
+            0,
+            tape
         );
         Transition transition = new Transition(
-                0, 1, 'a', 'b', 'L'
+            0, 1, 'a', 'b', 'L'
         );
 
         ProcessingState to = transition.apply(from, false);
@@ -58,13 +57,13 @@ class TransitionTest {
     void shouldNotMoveHeadAndChangeState() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                tape
+            0,
+            1,
+            0,
+            tape
         );
         Transition transition = new Transition(
-                0, 1, 'a', 'b', 'S'
+            0, 1, 'a', 'b', 'S'
         );
 
         ProcessingState to = transition.apply(from, false);
@@ -80,13 +79,13 @@ class TransitionTest {
     void shouldRemainInTheSameStateOnTheSamePosition() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                tape
+            0,
+            1,
+            0,
+            tape
         );
         Transition transition = new Transition(
-                0, 0, 'a', 'a', 'S'
+            0, 0, 'a', 'a', 'S'
         );
 
         ProcessingState to = transition.apply(from, false);
@@ -101,13 +100,13 @@ class TransitionTest {
     @Test
     void shouldThrowExceptionWhenNotApplicableOnState() {
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                Tape.of(new char[]{'_', 'a', 'a', '_'})
+            0,
+            1,
+            0,
+            Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
-                1, 1, 'a', 'b', 'S'
+            1, 1, 'a', 'b', 'S'
         );
         assertThrows(IllegalArgumentException.class, () -> transition.apply(from, false));
     }
@@ -115,13 +114,13 @@ class TransitionTest {
     @Test
     void shouldThrowExceptionWhenNotApplicableOnCurrChar() {
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                Tape.of(new char[]{'_', 'a', 'a', '_'})
+            0,
+            1,
+            0,
+            Tape.of(new char[]{'_', 'a', 'a', '_'})
         );
         Transition transition = new Transition(
-                0, 1, 'b', 'c', 'S'
+            0, 1, 'b', 'c', 'S'
         );
         assertThrows(IllegalArgumentException.class, () -> transition.apply(from, false));
     }
@@ -130,13 +129,13 @@ class TransitionTest {
     void shouldReturnTapeCopyWhenCloneFlagIsTrue() {
         Tape tape = Tape.of(new char[]{'_', 'a', 'a', '_'});
         ProcessingState from = new ProcessingState(
-                0,
-                1,
-                0,
-                tape
+            0,
+            1,
+            0,
+            tape
         );
         Transition transition = new Transition(
-                0, 1, 'a', 'b', 'R'
+            0, 1, 'a', 'b', 'R'
         );
 
         ProcessingState to = transition.apply(from, true);
