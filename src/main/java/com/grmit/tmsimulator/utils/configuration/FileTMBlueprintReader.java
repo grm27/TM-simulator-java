@@ -10,12 +10,12 @@ public class FileTMBlueprintReader implements TMBlueprintReader {
     @Override
     public TMBlueprint read(String tmName) {
         try (BufferedReader fileReader =
-                     new BufferedReader(new FileReader("src/test/resources/tests/" + tmName + ".txt"))) {
+                 new BufferedReader(new FileReader("src/test/resources/tests/" + tmName + ".txt"))) {
             validateFileStart(fileReader);
             return new TMBlueprint(
-                    readTransitions(fileReader),
-                    readAcceptanceStates(fileReader),
-                    readMaxIterations(fileReader)
+                readTransitions(fileReader),
+                readAcceptanceStates(fileReader),
+                readMaxIterations(fileReader)
             );
         } catch (IOException e) {
             throw new RuntimeException("Failed to read from the specification file: " + e.getMessage(), e);

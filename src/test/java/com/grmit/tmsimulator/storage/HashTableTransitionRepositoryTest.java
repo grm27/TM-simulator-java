@@ -16,12 +16,12 @@ class HashTableTransitionRepositoryTest {
     @BeforeAll
     static void beforeAll() {
         transitionRepository = new HashTableTransitionRepository(
-                List.of(
-                        Transition.of(0, 1, 'a', 'b', 'R'),
-                        Transition.of(0, 1, 'a', 'c', 'R'),
-                        Transition.of(1, 1, 'a', 'b', 'R'),
-                        Transition.of(1, 1, 'b', 'b', 'R')
-                )
+            List.of(
+                Transition.of(0, 1, 'a', 'b', 'R'),
+                Transition.of(0, 1, 'a', 'c', 'R'),
+                Transition.of(1, 1, 'a', 'b', 'R'),
+                Transition.of(1, 1, 'b', 'b', 'R')
+            )
         );
     }
 
@@ -38,8 +38,8 @@ class HashTableTransitionRepositoryTest {
     @Test
     void shouldReturnMatchingTransitionsWhenMatches() {
         assertEquals(List.of(
-                Transition.of(0, 1, 'a', 'b', 'R'),
-                Transition.of(0, 1, 'a', 'c', 'R')
+            Transition.of(0, 1, 'a', 'b', 'R'),
+            Transition.of(0, 1, 'a', 'c', 'R')
         ), transitionRepository.get(0, 'a'));
     }
 }

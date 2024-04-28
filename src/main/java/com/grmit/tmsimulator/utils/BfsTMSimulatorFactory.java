@@ -22,9 +22,9 @@ public class BfsTMSimulatorFactory implements TMSimulatorFactory {
     public TMSimulator createTMSimulator() {
         List<Transition> transitions = transitionsBlueprintConverter.from(tmBlueprint.transitions());
         return new TMSimulatorBreadthFirstSearchImpl(
-                new HashTableTransitionRepository(transitions),
-                tmBlueprint.acceptingStates(),
-                tmBlueprint.maxIteration()
+            new HashTableTransitionRepository(transitions),
+            tmBlueprint.acceptingStates(),
+            tmBlueprint.maxIteration()
         );
     }
 }

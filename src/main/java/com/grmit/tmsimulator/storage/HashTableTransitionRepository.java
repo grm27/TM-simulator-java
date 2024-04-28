@@ -14,7 +14,7 @@ public class HashTableTransitionRepository implements TransitionRepository {
 
     public HashTableTransitionRepository(List<Transition> transitionsSupplier) {
         transitionMap = transitionsSupplier.stream().collect(
-                groupingBy(Transition::index)
+            groupingBy(Transition::index)
         );
     }
 
