@@ -106,4 +106,5 @@
 
 #### Run
 The `TMSimulatorBreadthFirstSearchImpl` class implements a Turing Machine simulator that uses a breadth-first search (BFS) strategy to determine the acceptability of input strings based on predefined transitions and states. This class extends the `AbstractTMSimulator` framework, utilizing a queue (`processingQueue`) to systematically explore all possible state transitions from the initial state. It processes each state in the order they are encountered to ensure a complete and unbiased evaluation of the Turing Machine's behavior. The simulator handles a variety of input scenarios and efficiently manages transitions to provide reliable simulation results.
+
 It is enough to run `TMSimulatorBreadthFirstSearchImplTest` to process all the models in the repository and compare the output against the correct result.
