@@ -11,7 +11,7 @@ import java.util.Queue;
 
 public class TMSimulatorBreadthFirstSearchImpl extends AbstractTMSimulator {
 
-    private final Queue<ProcessingState> toBeChecked = new ArrayDeque<>();
+    private final Queue<ProcessingState> explorationQueue = new ArrayDeque<>();
 
     public TMSimulatorBreadthFirstSearchImpl(TransitionRepository transitionRepository, List<Integer> finalStates, int maxIterations) {
         super(transitionRepository, finalStates, maxIterations);
@@ -19,31 +19,37 @@ public class TMSimulatorBreadthFirstSearchImpl extends AbstractTMSimulator {
 
     @Override
     public char isStringAccepted(char[] inputString) {
-        ProcessingState initConfig = new ProcessingState(
-            0, 0, 0, Tape.of(inputString)
-        );
+        initializeQueue(inputString);
+        return runSimulator();
+    }
 
-        toBeChecked.add(initConfig);
+    private void initializeQueue(char[] inputString) {
+        ProcessingState initState = new ProcessingState(0, 0, 0, Tape.of(inputString));
+        explorationQueue.add(initState);
+    }
+
+    private char runSimulator() {
         boolean undefinedBranch = false;
-        ProcessingState curr;
-        while (!toBeChecked.isEmpty()) {
-            curr = toBeChecked.poll();
-            List<Transition> applicableTransition = transitionRepository.get(
-                curr.state(),
-                curr.currChar()
-            );
-            if (acceptingStates.contains(curr.state()) && applicableTransition.isEmpty()) {
-                toBeChecked.clear();
+        while (!explorationQueue.isEmpty()) {
+            ProcessingState curr = explorationQueue.poll();
+            if (checkFinalStates(curr)) {
+                explorationQueue.clear();
                 return '1';
             }
-            for (Transition transition : applicableTransition) {
-                ProcessingState processingState = transition.apply(curr, applicableTransition.size() > 1);
-                if (processingState.iteration() <= maxIterations) {
-                    toBeChecked.add(processingState);
-                } else undefinedBranch = true;
+            List<Transition> applicableTransitions = transitionRepository.get(curr.state(), curr.currChar());
+            for (Transition transition : applicableTransitions) {
+                ProcessingState nextState = transition.apply(curr, applicableTransitions.size() > 1);
+                if (nextState.iteration() <= maxIterations) {
+                    explorationQueue.add(nextState);
+                } else {
+                    undefinedBranch = true;
+                }
             }
         }
-
         return undefinedBranch ? 'U' : '0';
+    }
+
+    private boolean checkFinalStates(ProcessingState currentState) {
+        return acceptingStates.contains(currentState.state()) && transitionRepository.get(currentState.state(), currentState.currChar()).isEmpty();
     }
 }
